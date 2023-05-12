@@ -26,7 +26,7 @@ static func arrayRepeat(value, count: int) -> Array:
 		array.append(value)
 	return array
 
-func listFiles(path: String, ends: Array = []) -> Array:
+static func listFiles(path: String, ends: Array = []) -> Array:
 	var list := []
 	for dir in DirAccess.get_directories_at(path):
 		if !dir.begins_with("."):
@@ -44,7 +44,7 @@ func listFiles(path: String, ends: Array = []) -> Array:
 				list.append(path + "/" + file)
 	return list
 
-func saveFiles(list: Array, path: String) -> void:
+static func saveFiles(list: Array, path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(JSON.stringify(list))
 	file.close()
