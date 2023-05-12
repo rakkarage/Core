@@ -1,3 +1,4 @@
+# project settings -> autoload before use
 extends Node
 
 var _rng := RandomNumberGenerator.new()
