@@ -34,7 +34,7 @@ static func listFiles(path: String, ends: Array = []) -> Array:
 	for file in DirAccess.get_files_at(path):
 		if !file.begins_with(".") and !file.ends_with(".import"):
 			if not ends.is_empty():
-				var ok = false
+				var ok := false
 				for end in ends:
 					if file.ends_with(end):
 						ok = true
@@ -45,6 +45,6 @@ static func listFiles(path: String, ends: Array = []) -> Array:
 	return list
 
 static func saveFiles(list: Array, path: String) -> void:
-	var file = FileAccess.open(path, FileAccess.WRITE)
+	var file := FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(JSON.stringify(list))
 	file.close()
