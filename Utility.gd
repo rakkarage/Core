@@ -30,7 +30,7 @@ static func listFiles(path: String, ends: Array = []) -> Array:
 	var list := []
 	for dir in DirAccess.get_directories_at(path):
 		if !dir.begins_with("."):
-			list += listFiles(path + "/" + dir, ends)
+			list += listFiles(path + dir + "/", ends)
 	for file in DirAccess.get_files_at(path):
 		if !file.begins_with(".") and !file.ends_with(".import"):
 			if not ends.is_empty():
@@ -39,9 +39,9 @@ static func listFiles(path: String, ends: Array = []) -> Array:
 					if file.ends_with(end):
 						ok = true
 				if ok:
-					list.append(path + "/" + file)
+					list.append(path + file)
 			else:
-				list.append(path + "/" + file)
+				list.append(path + file)
 	return list
 
 static func saveFiles(list: Array, path: String) -> void:
