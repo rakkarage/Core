@@ -3,16 +3,13 @@ class_name Utility
 
 static func stfu(_ignore) -> void: pass
 
-static func indexV(p: Vector2, width: int) -> int:
-	return index(int(p.x), int(p.y), width)
+static func index(p: Vector2i, w: int) -> int:
+	return int(p.x + (p.y * w))
 
-static func index(x: int, y: int, width: int) -> int:
-	return int(y * width + x)
-
-static func position(i: int, width: int) -> Vector2:
-	var y := int(i / float(width))
-	var x := int(i - width * y)
-	return Vector2(x, y)
+static func position(i: int, w: int) -> Vector2i:
+	var y := int(i / float(w))
+	var x := int(i - (y * w))
+	return Vector2i(x, y)
 
 static func constrainRect(world: Rect2, map: Rect2) -> Vector2:
 	return constrain(world.position, world.end, map.position, map.end)
