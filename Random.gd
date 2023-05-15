@@ -27,11 +27,12 @@ func nextFloat() -> float:
 func nextColor() -> Color:
 	return Color(nextFloat(), nextFloat(), nextFloat())
 
-# returns priority value:
-# { "test0", { "name": "Test 0", "priority": 2 },
-#   "test1", { "name": "Test 1", "priority": 1 } }
-# or returns priority key:
-# { funcref(self, "test0"): 2, funcref(self, "test1"): 1 }
+# returns priority value if is dictionary and has priority key:
+# { "common", { "name": "Common", "priority": 100 },
+#   "rare", { "name": "Rare", "priority": 1 } }
+# else assumes value is priority and returns priority key:
+# { funcref(self, "common"): 100,
+#   funcref(self, "rare"): 1 }
 # https://www.codeproject.com/Articles/420046/Loot-Tables-Random-Maps-and-Monsters-Part-I
 func priority(d: Dictionary):
 	var r
