@@ -40,14 +40,13 @@ static func listFiles(path: String, extensions: Array = []) -> Array:
 		if not dir.begins_with("."):
 			list.append_array(listFiles(path + dir + "/", extensions))
 	for file in DirAccess.get_files_at(path):
-		var ext = file.split(".")[-1]
+		var ext := file.split(".")[-1]
 		if not file.begins_with(".") and ext != "import":
-			if not extensions.is_empty() and ext not in extensions:
-				continue
-			list.append(path + file)
+			if extensions.is_empty() or ext in extensions:
+				list.append(path + file)
 	return list
 
-static func saveFiles(list: Array, path: String) -> void:
+static func saveList(list: Array, path: String) -> void:
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(JSON.stringify(list))
 	file.close()
