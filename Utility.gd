@@ -3,16 +3,16 @@ class_name Utility
 
 static func stfu(_ignore) -> void: pass
 
-static func index(p: Vector2i, w: int) -> int:
-	return int(p.x + (p.y * w))
+static func tileIndex(p: Vector2i, w: int) -> int:
+	return p.x + p.y * w
 
-static func position(i: int, w: int) -> Vector2i:
+static func tilePosition(i: int, w: int) -> Vector2i:
 	var y := int(i / float(w))
-	var x := int(i - (y * w))
+	var x := i - y * w
 	return Vector2i(x, y)
 
 static func constrainRect(world: Rect2, map: Rect2) -> Vector2:
-	return constrain(world.position, world.end, map.position, map.end)
+	return Utility.constrain(world.position, world.end, map.position, map.end)
 
 static func constrain(minWorld: Vector2, maxWorld: Vector2, minMap: Vector2, maxMap: Vector2) -> Vector2:
 	var delta := Vector2.ZERO
@@ -38,7 +38,7 @@ static func listFiles(path: String, extensions: Array = []) -> Array:
 	var list := []
 	for dir in DirAccess.get_directories_at(path):
 		if not dir.begins_with("."):
-			list.append_array(listFiles(path + dir + "/", extensions))
+			list.append_array(Utility.listFiles(path + dir + "/", extensions))
 	for file in DirAccess.get_files_at(path):
 		var ext := file.split(".")[-1]
 		if not file.begins_with(".") and ext != "import":

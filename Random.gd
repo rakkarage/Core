@@ -1,4 +1,3 @@
-# autoload
 extends Node
 
 var _rng := RandomNumberGenerator.new()
