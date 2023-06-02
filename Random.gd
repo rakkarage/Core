@@ -26,24 +26,35 @@ func nextFloat() -> float:
 func nextColor() -> Color:
 	return Color(nextFloat(), nextFloat(), nextFloat())
 
+# https://www.codeproject.com/Articles/420046/Loot-Tables-Random-Maps-and-Monsters-Part-I
+func probabilityIndex(a: Array) -> int:
+	var total = a.reduce(func(a, b): return a + b)
+	var selected := next(total)
+	var current := 0
+	for i in a.size():
+		current += a[i]
+		if current > selected:
+			return i
+	return -1 # should never happen
+
 # returns priority value if is dictionary and has priority key:
 # { "common": { "name": "Common", "priority": 100 },
 #   "rare": { "name": "Rare", "priority": 1 } }
 # else assumes value is priority and returns priority key:
-# { Callable(self, "common"): 100,
-#   Callable(self, "rare"): 1 }
-# https://www.codeproject.com/Articles/420046/Loot-Tables-Random-Maps-and-Monsters-Part-I
-func priority(d: Dictionary):
+# { 100: Callable(self, "common"),
+#   1: Callable(self, "rare") }
+func probability(d: Dictionary):
 	var r
 	var total := 0
-	for value in d.values():
-		total += value.priority if value is Dictionary and "priority" in value else value
+	for key in d:
+		var value = d[key]
+		total += value.priority if value is Dictionary and "priority" in value else key
 	var selected := next(total)
 	var current := 0
-	for key in d.keys():
+	for key in d:
 		var value = d[key]
 		r = value if value is Dictionary and "priority" in value else key
-		current += value.priority if value is Dictionary and "priority" in value else value
+		current += r
 		if current > selected:
-			break
-	return r
+			return r
+	return null # should never happen
