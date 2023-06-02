@@ -7,9 +7,7 @@ static func tileIndex(p: Vector2i, w: int) -> int:
 	return p.x + p.y * w
 
 static func tilePosition(i: int, w: int) -> Vector2i:
-	var y := int(i / float(w))
-	var x := i - y * w
-	return Vector2i(x, y)
+	return Vector2i(i % w, int(i / float(w)))
 
 static func constrainRect(world: Rect2, map: Rect2) -> Vector2:
 	return Utility.constrain(world.position, world.end, map.position, map.end)
