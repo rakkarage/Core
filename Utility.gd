@@ -1,36 +1,11 @@
 extends Object
 class_name Utility
 
-static func stfu(_ignore) -> void: pass
-
-static func tileIndex(p: Vector2i, w: int) -> int:
-	return p.x + p.y * w
-
-static func tilePosition(i: int, w: int) -> Vector2i:
-	return Vector2i(i % w, int(i / float(w)))
-
-static func constrainRect(world: Rect2, map: Rect2) -> Vector2:
-	return Utility.constrain(world.position, world.end, map.position, map.end)
-
-static func constrain(minWorld: Vector2, maxWorld: Vector2, minMap: Vector2, maxMap: Vector2) -> Vector2:
-	var delta := Vector2.ZERO
-	if minWorld.x > minMap.x: delta.x += minMap.x - minWorld.x
-	if maxWorld.x < maxMap.x: delta.x -= maxWorld.x - maxMap.x
-	if minWorld.y > minMap.y: delta.y += minMap.y - minWorld.y
-	if maxWorld.y < maxMap.y: delta.y -= maxWorld.y - maxMap.y
-	return delta
-
 static func arraySequence(value: int, count: int) -> Array:
-	var array := []
-	for i in range(count):
-		array.append(value + i)
-	return array
+	return [value + i for i in range(count)]
 
 static func arrayRepeat(value, count: int) -> Array:
-	var array := []
-	for _i in range(count):
-		array.append(value)
-	return array
+	return [value for _ in range(count)]
 
 static func listFiles(path: String, extensions: Array = []) -> Array:
 	var list := []
@@ -38,9 +13,9 @@ static func listFiles(path: String, extensions: Array = []) -> Array:
 		if not dir.begins_with("."):
 			list.append_array(Utility.listFiles(path + dir + "/", extensions))
 	for file in DirAccess.get_files_at(path):
-		var ext := file.split(".")[-1]
-		if not file.begins_with(".") and ext != "import":
-			if extensions.is_empty() or ext in extensions:
+		var extension := file.split(".")[-1]
+		if not file.begins_with(".") and extension != "import":
+			if extensions.is_empty() or extension in extensions:
 				list.append(path + file)
 	return list
 
