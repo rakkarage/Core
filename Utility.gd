@@ -2,10 +2,13 @@ extends Object
 class_name Utility
 
 static func arraySequence(value: int, count: int) -> Array:
-	return [value + i for i in range(count)]
+	return Array(range(value, value + count))
 
-static func arrayRepeat(value, count: int) -> Array:
-	return [value for _ in range(count)]
+static func arrayRepeat(value: int, count: int) -> Array:
+	var array := []
+	array.resize(count)
+	array.fill(value)
+	return array
 
 static func listFiles(path: String, extensions: Array = []) -> Array:
 	var list := []
