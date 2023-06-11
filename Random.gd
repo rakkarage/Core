@@ -41,20 +41,18 @@ func probabilityIndex(a: Array) -> int:
 # { "common": { "name": "Common", "priority": 100 },
 #   "rare": { "name": "Rare", "priority": 1 } }
 # else assumes value is priority and returns priority key:
-# { 100: Callable(self, "common"),
-#   1: Callable(self, "rare") }
+# { Callable(self, "common"): 100,
+#   Callable(self, "rare"): 1 }
 func probability(d: Dictionary):
-	var r
 	var total := 0
 	for key in d:
 		var value = d[key]
-		total += value.priority if value is Dictionary and "priority" in value else key
+		total += value.priority if value is Dictionary and "priority" in value else value
 	var selected := next(total)
 	var current := 0
 	for key in d:
 		var value = d[key]
-		r = value if value is Dictionary and "priority" in value else key
-		current += r
+		current += value.priority if value is Dictionary and "priority" in value else value
 		if current > selected:
-			return r
+			return value if value is Dictionary and "priority" in value else key
 	return null # should never happen
