@@ -28,9 +28,9 @@ func nextColor() -> Color:
 
 # returns probability index: [1, 100]
 func probabilityIndex(a: Array) -> int:
-	var total = a.reduce(func(a, b): return a + b)
-	var selected := next(total)
-	var current := 0
+	var total: float = a.reduce(func(a, b): return a + b)
+	var selected := nextFloat() * total
+	var current := 0.0
 	for i in a.size():
 		current += a[i]
 		if current > selected:
@@ -44,11 +44,11 @@ func probabilityIndex(a: Array) -> int:
 # { Callable(self, "common"): 100,
 #   Callable(self, "rare"): 1 }
 func probability(d: Dictionary):
-	var total := 0
+	var total := 0.0
 	for value in d.values():
 		total += value.probability if value is Dictionary and "probability" in value else value
-	var selected := next(total)
-	var current := 0
+	var selected := nextFloat() * total
+	var current := 0.0
 	for key in d:
 		var value = d[key]
 		current += value.probability if value is Dictionary and "probability" in value else value
