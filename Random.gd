@@ -30,6 +30,11 @@ func nextRangeEven(from: int, to: int) -> int:
 func nextRangeOdd(from: int, to: int) -> int:
 	return nextRangeEven(from, to) + 1
 
+## Generates a random float between [param from] and [param to] (inclusive).
+## If [param from] is greater than [param to], the method returns 0.
+func nextRangeFloat(from: float, to: float) -> float:
+	return _rng.randf_range(from, to)
+
 # Generates a random boolean value (true or false).
 # Generates a random integer between 0 and 1 and returns true if the value is 1, false otherwise.
 func nextBool() -> bool:
