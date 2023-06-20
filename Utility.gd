@@ -20,7 +20,7 @@ static func arraySequence(value: int, count: int) -> Array[int]:
 
 ## Generate an array of integers with the specified [param value] repeated for the specified [param count].
 static func arrayRepeat(value: int, count: int) -> Array[int]:
-	var array := []
+	var array: Array[int] = []
 	array.resize(count)
 	array.fill(value)
 	return array
