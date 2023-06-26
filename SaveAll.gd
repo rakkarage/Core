@@ -3,8 +3,8 @@
 @tool
 extends EditorScript
 
-## Uses a for loop to iterate over all `.tscn` and `.tres` files in the project directory. See [method Utility.listFiles] for more information.
-## For each file, the method loads the resource using the `load` method and saves it using the `ResourceSaver.save` method.
+## Iterate over all `.tscn` and `.tres` files in the project directory. See [method Utility.listFiles].
+## For each file, loads [method @GDScript.load] and saves using [method ResourceSaver.save].
 func _run() -> void:
-	for file in Utility.listFiles("res://", ["tscn", "tres"]):
+	for file in Utility.list_files("res://", ["tscn", "tres"]):
 		ResourceSaver.save(load(file))
