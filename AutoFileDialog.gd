@@ -1,6 +1,12 @@
 ## A file dialog that can be used to load or save files.
 extends FileDialog
 
+var _old_ok: Callable ## The last ok callback.
+
+## Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	connect("file_selected", func(_ignore): hide())
+
 ## Show a load dialog with default values.
 func show_load(ok: Callable, filter: Array[String]) -> void:
 	return show_dialog(FileDialog.FILE_MODE_OPEN_FILE, ok, filter)
@@ -18,5 +24,7 @@ func show_dialog(use_mode: FileDialog.FileMode, ok: Callable, filter: Array[Stri
 	filters = filter
 	size = Vector2(800, 600)
 	popup_centered()
+	if _old_ok.is_valid():
+		disconnect("file_selected", _old_ok)
 	connect("file_selected", ok)
-	connect("file_selected", func(_ignore): hide())
+	_old_ok = ok
