@@ -27,7 +27,7 @@ static func list_files(path: String, extensions: Array[String] = []) -> Array[St
 	var list: Array[String] = []
 	for dir in DirAccess.get_directories_at(path):
 		if not dir.begins_with("."):
-			list.append_array(Utility.listFiles(path + dir + "/", extensions))
+			list.append_array(Utility.list_files(path + dir + "/", extensions))
 	for file in DirAccess.get_files_at(path):
 		var extension := file.split(".")[-1]
 		if not file.begins_with(".") and extension != "import":
