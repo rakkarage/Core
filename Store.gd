@@ -1,3 +1,4 @@
+## Stores data in a config file. Can specify [member _path] and [member _default] value.
 extends Node
 class_name Store
 
@@ -7,8 +8,11 @@ var _default := {}
 var data: Dictionary
 
 func _init() -> void:
-	data = _default.duplicate()
+	clear()
 	read()
+
+func _exit_tree() -> void:
+	write()
 
 func read() -> void:
 	if _file.load(_path) == OK:
